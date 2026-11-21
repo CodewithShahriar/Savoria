@@ -170,7 +170,7 @@ export default function MenuSection() {
           </div>
         </div>
 
-        {/* Interactive Search & Dietary Filter Box */}
+        {/* Interactive Search & Live Control Bar */}
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4 mb-14 glass-panel p-4 rounded-2xl border border-white/5">
           <div className="relative w-full sm:w-96">
             <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
@@ -191,23 +191,26 @@ export default function MenuSection() {
             )}
           </div>
 
-          <div className="flex items-center gap-2 w-full sm:w-auto justify-end">
-            <span className="text-xs text-gray-500 flex items-center gap-1 font-mono">
-              <Filter className="w-3.5 h-3.5" /> Dietary:
-            </span>
-            {(['all', 'halal', 'veg'] as const).map((d) => (
-              <button
-                key={d}
-                onClick={() => setDietaryFilter(d)}
-                className={`px-3.5 py-1.5 rounded-xl text-xs font-mono uppercase transition-all border ${
-                  dietaryFilter === d
-                    ? 'bg-amber-500/20 border-amber-500 text-amber-300 shadow-sm'
-                    : 'border-transparent text-gray-400 hover:text-white'
-                }`}
-              >
-                {d}
-              </button>
-            ))}
+          <div className="flex items-center gap-3 w-full sm:w-auto justify-between sm:justify-end">
+            <button
+              onClick={() => {
+                playBeep('click');
+                setChefSpecialsOnly(!chefSpecialsOnly);
+              }}
+              className={`flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-mono transition-all border ${
+                chefSpecialsOnly
+                  ? 'bg-amber-400 text-black font-bold border-amber-400 shadow-md shadow-amber-400/20'
+                  : 'glass-panel text-gray-400 hover:text-white border-gray-800 hover:border-gray-700'
+              }`}
+            >
+              <Star className={`w-3.5 h-3.5 ${chefSpecialsOnly ? 'text-black fill-black' : 'text-amber-400'}`} />
+              <span>Chef's Picks Only</span>
+            </button>
+
+            <div className="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-gray-900/60 border border-gray-800 text-xs font-mono text-gray-400">
+              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+              <span>Showing <strong className="text-white">{filteredItems.length}</strong> Dishes</span>
+            </div>
           </div>
         </div>
 
@@ -225,7 +228,7 @@ export default function MenuSection() {
               onClick={() => {
                 setSelectedCategory('all');
                 setSearchQuery('');
-                setDietaryFilter('all');
+                setChefSpecialsOnly(false);
               }}
               className="px-5 py-2.5 bg-amber-500 text-black font-bold rounded-full text-xs font-mono"
             >
@@ -384,32 +387,37 @@ export default function MenuSection() {
               </div>
             </div>
 
-            {/* Spice Selector */}
+            {/* Preparation / Doneness Selector */}
             <div className="space-y-3 mb-6">
               <label className="text-xs font-mono uppercase tracking-wider text-gray-300 flex items-center gap-2">
-                <Flame className="w-4 h-4 text-red-400" />
-                Select Spice Tolerance:
+                <Flame className="w-4 h-4 text-amber-400" />
+                {customizingItem.category === 'steaks-grills'
+                  ? 'Select Steak Doneness:'
+                  : customizingItem.category === 'beverages'
+                  ? 'Ice & Serving Style:'
+                  : 'Chef’s Preparation & Seasoning:'}
               </label>
-              <div className="grid grid-cols-3 gap-2">
-                {[
-                  { level: 1, label: 'Mild 🌶️' },
-                  { level: 2, label: 'Balanced Hot 🌶️🌶️' },
-                  { level: 3, label: 'Savoria Fiery 🔥' },
-                ].map((s) => (
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+                {(customizingItem.category === 'steaks-grills'
+                  ? ['Rare', 'Medium Rare ★', 'Medium', 'Well Done']
+                  : customizingItem.category === 'beverages'
+                  ? ['Cryo Chilled', 'Hand-Cut Rock', 'Neat']
+                  : ["Chef's Signature Balance", 'Light Sea Salt', 'Fresh Peppercorn']
+                ).map((opt) => (
                   <button
-                    key={s.level}
+                    key={opt}
                     type="button"
                     onClick={() => {
                       playBeep('click');
-                      setSelectedSpice(s.level);
+                      setSelectedPrepOption(opt);
                     }}
-                    className={`py-2 px-2 rounded-xl text-xs font-mono transition-all border ${
-                      selectedSpice === s.level
-                        ? 'bg-red-950/80 border-red-500 text-red-200 shadow-md shadow-red-500/20'
+                    className={`py-2 px-2.5 rounded-xl text-xs font-mono transition-all border ${
+                      selectedPrepOption === opt
+                        ? 'bg-amber-400 text-black font-bold border-amber-400 shadow-md shadow-amber-400/20'
                         : 'bg-gray-900/60 border-gray-800 text-gray-400 hover:border-gray-700'
                     }`}
                   >
-                    {s.label}
+                    {opt}
                   </button>
                 ))}
               </div>
@@ -418,31 +426,31 @@ export default function MenuSection() {
             {/* Flavor Matrix Gauge */}
             <div className="p-4 rounded-2xl bg-black/40 border border-gray-800/80 mb-6 space-y-2.5">
               <span className="text-[10px] font-mono uppercase tracking-widest text-cyan-400 block">
-                Reactive Flavor Telemetry Matrix:
+                Reactive Culinary Profile Matrix:
               </span>
               <div className="space-y-2 text-[11px] font-mono">
                 <div>
                   <div className="flex justify-between text-gray-400 mb-1">
-                    <span>Heat Index (Scoville)</span>
-                    <span className="text-red-400">{selectedSpice === 1 ? '3,500 SHU' : selectedSpice === 2 ? '15,000 SHU' : '50,000+ SHU'}</span>
+                    <span>Selected Preparation</span>
+                    <span className="text-amber-300 font-bold">{selectedPrepOption}</span>
                   </div>
                   <div className="h-1.5 w-full bg-gray-900 rounded-full overflow-hidden">
                     <div
-                      className="h-full bg-gradient-to-r from-amber-500 to-red-500 transition-all duration-300"
-                      style={{ width: `${selectedSpice === 1 ? '30%' : selectedSpice === 2 ? '65%' : '95%'}` }}
+                      className="h-full bg-gradient-to-r from-amber-500 to-amber-300 transition-all duration-300"
+                      style={{ width: '85%' }}
                     />
                   </div>
                 </div>
 
                 <div>
                   <div className="flex justify-between text-gray-400 mb-1">
-                    <span>Umami & Savor Density</span>
-                    <span className="text-amber-300">{85 + selectedAddons.length * 4}%</span>
+                    <span>Umami & Flavor Density</span>
+                    <span className="text-cyan-300">{88 + selectedAddons.length * 4}%</span>
                   </div>
                   <div className="h-1.5 w-full bg-gray-900 rounded-full overflow-hidden">
                     <div
                       className="h-full bg-gradient-to-r from-cyan-500 to-amber-400 transition-all duration-300"
-                      style={{ width: `${Math.min(100, 85 + selectedAddons.length * 4)}%` }}
+                      style={{ width: `${Math.min(100, 88 + selectedAddons.length * 4)}%` }}
                     />
                   </div>
                 </div>
