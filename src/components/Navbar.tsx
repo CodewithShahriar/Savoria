@@ -61,6 +61,14 @@ export default function Navbar() {
                 Menu Collection
               </Link>
               <Link
+                href="/reservation"
+                onClick={() => playBeep('click')}
+                className="text-gray-300 hover:text-amber-400 transition-colors flex items-center gap-1.5"
+              >
+                <Calendar className="w-4 h-4 text-amber-500/70" />
+                Reservation
+              </Link>
+              <Link
                 href="/about"
                 onClick={() => playBeep('click')}
                 className="text-gray-300 hover:text-amber-400 transition-colors flex items-center gap-1.5"
@@ -76,16 +84,6 @@ export default function Navbar() {
                 <Sparkles className="w-4 h-4 text-cyan-400/70" />
                 Concierge & Contact
               </Link>
-              <button
-                onClick={() => {
-                  playBeep('click');
-                  setTrackModalOpen(true);
-                }}
-                className="text-gray-300 hover:text-cyan-400 transition-colors flex items-center gap-1.5"
-              >
-                <Compass className="w-4 h-4 text-cyan-400" />
-                Live Tracker
-              </button>
             </nav>
 
             {/* Action Buttons */}
@@ -146,6 +144,16 @@ export default function Navbar() {
               🍽️ Full Menu Collection
             </Link>
             <Link
+              href="/reservation"
+              onClick={() => {
+                setMobileMenuOpen(false);
+                playBeep('click');
+              }}
+              className="block text-gray-200 hover:text-amber-400 font-medium py-2"
+            >
+              📅 Table Reservation
+            </Link>
+            <Link
               href="/about"
               onClick={() => {
                 setMobileMenuOpen(false);
@@ -163,18 +171,8 @@ export default function Navbar() {
               }}
               className="block text-gray-200 hover:text-cyan-400 font-medium py-2"
             >
-              ✨ Concierge & Contact
+              🛎️ Concierge & Contact
             </Link>
-            <button
-              onClick={() => {
-                setMobileMenuOpen(false);
-                setTrackModalOpen(true);
-              }}
-              className="w-full text-left text-cyan-300 font-medium py-2 flex items-center gap-2"
-            >
-              <Compass className="w-4 h-4 text-cyan-400" />
-              Live Order Tracker
-            </button>
           </div>
         )}
       </header>

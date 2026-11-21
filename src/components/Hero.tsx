@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useCart } from '@/context/CartContext';
-import { ArrowRight, ChevronLeft, ChevronRight, Sparkles } from 'lucide-react';
+import { ArrowRight, ChevronLeft, ChevronRight, Sparkles, Calendar } from 'lucide-react';
 
 const HERO_DISHES = [
   {
@@ -119,12 +119,12 @@ export default function Hero() {
             </Link>
 
             <Link
-              href="/about"
+              href="/reservation"
               onClick={() => playBeep('click')}
               className="px-7 py-4 rounded-xl bg-black/40 hover:bg-white/10 text-white font-mono text-xs uppercase tracking-widest transition-all border border-gray-600/80 hover:border-amber-400/50 backdrop-blur-md flex items-center gap-2"
             >
-              <Sparkles className="w-3.5 h-3.5 text-amber-400" />
-              <span>ABOUT US</span>
+              <Calendar className="w-3.5 h-3.5 text-amber-400" />
+              <span>RESERVATION</span>
             </Link>
           </div>
 
