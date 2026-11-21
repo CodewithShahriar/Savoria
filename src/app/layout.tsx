@@ -3,7 +3,7 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: "Savoria | Futuristic Fine Dining & Culinary Odyssey",
-  description: "Experience Bangladesh's most innovative culinary destination. Indulge in artisanal Chinese, Thai, Indian, Italian, bespoke cocktails and decadent desserts with real-time cyber tracking.",
+  description: "Experience an avant-garde culinary destination. Indulge in artisanal Chinese, Thai, Indian, Italian, bespoke cocktails and decadent desserts with real-time cyber tracking.",
 };
 
 export default function RootLayout({

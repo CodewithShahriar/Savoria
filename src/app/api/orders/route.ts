@@ -35,7 +35,7 @@ export async function POST(request: Request) {
 
     // Calculate subtotal
     const subtotal = items.reduce((acc: number, item: any) => acc + (item.itemTotal || item.menuItem.price * item.quantity), 0);
-    const deliveryFee = 60; // Standard Dhaka express delivery
+    const deliveryFee = 5; // Standard express courier delivery ($5)
     const vat = Math.round(subtotal * 0.05); // 5% VAT
     const total = Math.max(0, subtotal + deliveryFee + vat - discount);
 
@@ -47,10 +47,10 @@ export async function POST(request: Request) {
     const nowTimeStr = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 
     let transactionId = undefined;
-    if (paymentMethod === 'bkash') {
-      transactionId = `BKSH-${Math.random().toString(36).substring(2, 10).toUpperCase()}`;
-    } else if (paymentMethod === 'nagad') {
-      transactionId = `NGD-${Math.random().toString(36).substring(2, 10).toUpperCase()}`;
+    if (paymentMethod === 'apple_pay') {
+      transactionId = `APAY-${Math.random().toString(36).substring(2, 10).toUpperCase()}`;
+    } else if (paymentMethod === 'google_pay') {
+      transactionId = `GPAY-${Math.random().toString(36).substring(2, 10).toUpperCase()}`;
     } else if (paymentMethod === 'card') {
       transactionId = `CARD-${Math.random().toString(36).substring(2, 10).toUpperCase()}`;
     }
@@ -62,7 +62,7 @@ export async function POST(request: Request) {
         phone: customer.phone,
         email: customer.email || '',
         address: customer.address,
-        zone: customer.zone || 'Dhaka Metropolitan',
+        zone: customer.zone || 'Downtown Skyline District',
         notes: customer.notes || '',
       },
       items,
@@ -76,12 +76,12 @@ export async function POST(request: Request) {
       transactionId,
       status: 'confirmed',
       createdAt: now.toISOString(),
-      estimatedDeliveryMinutes: 35,
+      estimatedDeliveryMinutes: 30,
       rider: {
-        name: 'Rafiul Islam',
-        phone: '01799123456',
-        bikeNumber: 'Dhaka Metro LA-3819',
-        rating: 4.95,
+        name: 'Julian Hayes',
+        phone: '+1 (555) 019-2834',
+        bikeNumber: 'Cyber Transit NY-4921',
+        rating: 4.98,
       },
       statusTimeline: [
         {
@@ -108,7 +108,7 @@ export async function POST(request: Request) {
         {
           status: 'on_the_way',
           title: 'Cyber Rider En Route',
-          description: 'Assigned rider Rafiul Islam has picked up your package.',
+          description: 'Assigned courier Julian Hayes has picked up your package.',
           time: undefined,
           completed: false,
         },

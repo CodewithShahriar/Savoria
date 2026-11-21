@@ -186,8 +186,8 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
       setAppliedPromo('FOODIE10');
       setDiscountPercent(10);
       return { success: true, message: 'Foodie discount! 10% off your feast.' };
-    } else if (cleanCode === 'EID2026') {
-      setAppliedPromo('EID2026');
+    } else if (cleanCode === 'CYBER20') {
+      setAppliedPromo('CYBER20');
       setDiscountPercent(20);
       return { success: true, message: 'Celebration discount! 20% off total.' };
     }
@@ -196,7 +196,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
 
   const cartCount = cart.reduce((total, item) => total + item.quantity, 0);
   const subtotal = cart.reduce((total, item) => total + item.itemTotal, 0);
-  const deliveryFee = cart.length > 0 ? 60 : 0;
+  const deliveryFee = cart.length > 0 ? 5 : 0;
   const vat = Math.round(subtotal * 0.05);
   const discount = Math.round((subtotal * discountPercent) / 100);
   const total = Math.max(0, subtotal + deliveryFee + vat - discount);

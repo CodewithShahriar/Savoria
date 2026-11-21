@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { useCart } from '@/context/CartContext';
 import { ShoppingBag, Compass, UtensilsCrossed, Calendar, Search, Sparkles, Menu, X, ShieldAlert } from 'lucide-react';
 import { useRouter } from 'next/navigation';
+import AmbientSoundPlayer from './AmbientSoundPlayer';
 
 export default function Navbar() {
   const { cartCount, setIsCartOpen, playBeep } = useCart();
@@ -51,22 +52,22 @@ export default function Navbar() {
 
             {/* Desktop Navigation */}
             <nav className="hidden md:flex items-center gap-8 text-sm font-medium">
-              <a
-                href="#menu"
+              <Link
+                href="/menu"
                 onClick={() => playBeep('click')}
                 className="text-gray-300 hover:text-amber-400 transition-colors flex items-center gap-1.5"
               >
                 <UtensilsCrossed className="w-4 h-4 text-amber-500/70" />
-                Menu
-              </a>
-              <a
-                href="#reservation"
+                Menu Collection
+              </Link>
+              <Link
+                href="/contact"
                 onClick={() => playBeep('click')}
-                className="text-gray-300 hover:text-amber-400 transition-colors flex items-center gap-1.5"
+                className="text-gray-300 hover:text-cyan-400 transition-colors flex items-center gap-1.5"
               >
-                <Calendar className="w-4 h-4 text-cyan-400/70" />
-                Reserve Table
-              </a>
+                <Sparkles className="w-4 h-4 text-cyan-400/70" />
+                Concierge & Contact
+              </Link>
               <button
                 onClick={() => {
                   playBeep('click');
@@ -88,6 +89,8 @@ export default function Navbar() {
 
             {/* Action Buttons */}
             <div className="flex items-center gap-3">
+              <AmbientSoundPlayer />
+
               {/* Quick Tracker Button */}
               <button
                 onClick={() => {
@@ -131,26 +134,26 @@ export default function Navbar() {
         {/* Mobile Dropdown */}
         {mobileMenuOpen && (
           <div className="md:hidden glass-dropdown border-b border-gray-800 px-4 pt-3 pb-6 space-y-4">
-            <a
-              href="#menu"
+            <Link
+              href="/menu"
               onClick={() => {
                 setMobileMenuOpen(false);
                 playBeep('click');
               }}
               className="block text-gray-200 hover:text-amber-400 font-medium py-2"
             >
-              🍽️ Food & Cocktail Menu
-            </a>
-            <a
-              href="#reservation"
+              🍽️ Full Menu Collection
+            </Link>
+            <Link
+              href="/contact"
               onClick={() => {
                 setMobileMenuOpen(false);
                 playBeep('click');
               }}
-              className="block text-gray-200 hover:text-amber-400 font-medium py-2"
+              className="block text-gray-200 hover:text-cyan-400 font-medium py-2"
             >
-              🍷 Reserve VIP Table
-            </a>
+              ✨ Concierge & Contact
+            </Link>
             <button
               onClick={() => {
                 setMobileMenuOpen(false);

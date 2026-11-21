@@ -1,7 +1,6 @@
 export interface MenuItem {
   id: string;
   name: string;
-  bengaliName?: string;
   description: string;
   price: number;
   category: 'chinese-thai' | 'indian' | 'pizza-pasta' | 'starters' | 'beverages' | 'desserts';
@@ -31,7 +30,7 @@ export interface CartItem {
 }
 
 export type OrderStatus = 'confirmed' | 'cooking' | 'quality_check' | 'on_the_way' | 'delivered' | 'cancelled';
-export type PaymentMethod = 'bkash' | 'nagad' | 'card' | 'cod';
+export type PaymentMethod = 'apple_pay' | 'google_pay' | 'card' | 'cod';
 
 export interface Order {
   id: string;
@@ -46,7 +45,7 @@ export interface Order {
   items: CartItem[];
   subtotal: number;
   deliveryFee: number;
-  vat: number; // 5% in Bangladesh restaurant sector
+  vat: number; // 5% culinary sector tax
   discount: number;
   total: number;
   paymentMethod: PaymentMethod;

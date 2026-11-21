@@ -23,8 +23,7 @@ export async function GET(request: Request) {
       menu = menu.filter(
         (item) =>
           item.name.toLowerCase().includes(q) ||
-          item.description.toLowerCase().includes(q) ||
-          (item.bengaliName && item.bengaliName.toLowerCase().includes(q))
+          item.description.toLowerCase().includes(q)
       );
     }
 
