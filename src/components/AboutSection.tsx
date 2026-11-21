@@ -33,7 +33,7 @@ export default function AboutSection() {
                     <span className="text-[10px] font-mono text-amber-400 uppercase tracking-widest block">
                       Executive Culinary Council
                     </span>
-                    <h4 className="text-lg font-bold font-serif text-white">Chef Marco Bellini & Chen Wei</h4>
+                    <h4 className="text-lg font-bold font-serif text-white">Chef Marco Bellini & Alexander Vance</h4>
                   </div>
                   <span className="text-xs font-mono bg-amber-500/20 text-amber-300 px-3 py-1 rounded-full border border-amber-500/40">
                     Est. 2024
@@ -64,14 +64,14 @@ export default function AboutSection() {
             </div>
 
             <h2 className="text-3xl sm:text-5xl font-serif font-black tracking-tight text-white leading-tight">
-              Where Ancestral Fire Meets <br />
+              Where Hardwood Fire Meets <br />
               <span className="bg-gradient-to-r from-amber-200 to-amber-500 bg-clip-text text-transparent">
                 Cryogenic Precision
               </span>
             </h2>
 
             <p className="text-gray-300 text-sm sm:text-base leading-relaxed font-light">
-              Savoria was born out of a rebellion against ordinary dining. We united master chefs across three continents to bridge the gap between ancient culinary heritage — from 900°C cast-iron Szechuan wok heat and 24-hour slow clay-pot Awadhi dum, to 48-hour fermented Neapolitan sourdough — with satellite-precision thermal delivery.
+              Savoria was born out of a rebellion against ordinary dining. We united master chefs across Europe and the Americas to bridge the gap between artisanal culinary heritage — from 800°C hardwood charcoal prime steak searing and wild Atlantic catches, to 48-hour fermented Neapolitan sourdough — with satellite-precision thermal delivery.
             </p>
 
             <div className="grid grid-cols-2 gap-4 py-2">
@@ -81,8 +81,8 @@ export default function AboutSection() {
                 <span className="text-[10px] text-gray-500">Zero artificial preservatives</span>
               </div>
               <div className="p-4 rounded-2xl bg-[#0a0e18] border border-gray-800 space-y-1">
-                <span className="text-2xl font-black font-mono text-cyan-400">900°C</span>
-                <span className="text-xs text-gray-300 block font-medium">Ancestral Wok Hei</span>
+                <span className="text-2xl font-black font-mono text-cyan-400">800°C</span>
+                <span className="text-xs text-gray-300 block font-medium">Hardwood Charcoal Flame</span>
                 <span className="text-[10px] text-gray-500">Sealed in under 12 seconds</span>
               </div>
             </div>

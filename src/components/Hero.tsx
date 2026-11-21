@@ -8,15 +8,15 @@ import { ArrowRight, ChevronLeft, ChevronRight, Sparkles } from 'lucide-react';
 const HERO_DISHES = [
   {
     id: 'hero-1',
-    name: 'Flame-Seared Skewers & Fresh Garden Greens',
-    cuisine: 'Asian Wok & Fire',
-    image: 'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=1920&q=85',
+    name: 'Prime Dry-Aged Black Angus Ribeye',
+    cuisine: 'Wood-Fired Prime Grillhouse',
+    image: 'https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=1920&q=85',
   },
   {
     id: 'hero-2',
-    name: 'Kashmiri Saffron Murgh & Royal Dum Braise',
-    cuisine: 'Royal Awadhi Heritage',
-    image: 'https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=1920&q=85',
+    name: 'Butter-Poached Atlantic Maine Lobster & Scallops',
+    cuisine: 'Coastal Oceanic & Raw Bar',
+    image: 'https://images.unsplash.com/photo-1534422298391-e4f8c172dddb?auto=format&fit=crop&w=1920&q=85',
   },
   {
     id: 'hero-3',
@@ -97,7 +97,7 @@ export default function Hero() {
 
           {/* Description Paragraph */}
           <p className="text-gray-300 text-sm sm:text-base max-w-lg leading-relaxed font-light drop-shadow-md">
-            Where ancestral wok flame meets hand-stretched Neapolitan stone hearths and molecular mixology. Savoria is a multisensory sanctuary crafted for those who demand the extraordinary.
+            Where prime hardwood charcoal flame meets hand-stretched Neapolitan stone hearths and molecular mixology. Savoria is a multisensory sanctuary crafted for those who demand the extraordinary.
           </p>
 
           {/* Live Dynamic Dish Badge */}

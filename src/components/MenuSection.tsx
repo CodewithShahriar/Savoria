@@ -6,13 +6,13 @@ import { useCart } from '@/context/CartContext';
 import { Flame, Star, Clock, Plus, Check, Search, Sparkles, Filter, X, ChevronRight, Sliders, ShieldCheck } from 'lucide-react';
 
 const CATEGORIES = [
-  { id: 'all', label: 'All Creations', icon: '✨', sectionId: '' },
-  { id: 'starters', label: 'Starters & Tapas', icon: '🍤', sectionId: 'cat-starters', subtitle: 'Gourmet Appetizers & Crispy Delicacies' },
-  { id: 'chinese-thai', label: 'Wok & Thai Fire', icon: '🥢', sectionId: 'cat-chinese-thai', subtitle: '900°C Szechuan Wok Hei & Bangkok Curries' },
-  { id: 'indian', label: 'Royal Awadhi Dum', icon: '🍛', sectionId: 'cat-indian', subtitle: 'Claypot Saffron Infusion & Charcoal Tandoor' },
-  { id: 'pizza-pasta', label: 'Artisan Hearth & Pasta', icon: '🍕', sectionId: 'cat-pizza-pasta', subtitle: '48H Cold Fermentation & Handcrafted Tagliatelle' },
-  { id: 'beverages', label: 'Alchemist Mixology', icon: '🍸', sectionId: 'cat-beverages', subtitle: 'Cryogenic Nitro Cold Brews & Sparklers' },
-  { id: 'desserts', label: '24K Decadent Sweets', icon: '🍰', sectionId: 'cat-desserts', subtitle: 'Single-Origin Belgian Lava & Spun Saffron Kunafa' },
+  { id: 'all', label: 'All Dishes', icon: '✨', sectionId: '' },
+  { id: 'starters', label: 'Starters & Raw Bar', icon: '🦪', sectionId: 'cat-starters', subtitle: 'Gourmet Caviar, Carpaccio & French Starters' },
+  { id: 'steaks-grills', label: 'Prime Steaks & Grills', icon: '🥩', sectionId: 'cat-steaks-grills', subtitle: 'Dry-Aged Angus Ribeye, Filet Mignon & Colorado Lamb' },
+  { id: 'seafood', label: 'Ocean Catch & Seafood', icon: '🦞', sectionId: 'cat-seafood', subtitle: 'Butter-Poached Maine Lobster, Sea Bass & Scallops' },
+  { id: 'pizza-pasta', label: 'Artisan Hearth & Pasta', icon: '🍕', sectionId: 'cat-pizza-pasta', subtitle: 'Neapolitan Sourdough Hearth & Fresh Truffle Tagliatelle' },
+  { id: 'beverages', label: 'Cocktails & Mixology', icon: '🍸', sectionId: 'cat-beverages', subtitle: 'Aged Whiskeys, Molecular Mixology & Fine Beverages' },
+  { id: 'desserts', label: 'Desserts & Patisserie', icon: '🍰', sectionId: 'cat-desserts', subtitle: '24K Molten Gateau, French Choux & Fine Sweets' },
 ];
 
 export default function MenuSection() {
@@ -20,11 +20,11 @@ export default function MenuSection() {
   const [loading, setLoading] = useState(true);
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [searchQuery, setSearchQuery] = useState('');
-  const [dietaryFilter, setDietaryFilter] = useState<'all' | 'halal' | 'veg'>('all');
+  const [chefSpecialsOnly, setChefSpecialsOnly] = useState(false);
   
   // Customization Modal State
   const [customizingItem, setCustomizingItem] = useState<MenuItem | null>(null);
-  const [selectedSpice, setSelectedSpice] = useState<number>(1);
+  const [selectedPrepOption, setSelectedPrepOption] = useState<string>('Medium Rare');
   const [selectedAddons, setSelectedAddons] = useState<Array<{ id: string; name: string; price: number }>>([]);
   const [instructions, setInstructions] = useState('');
   const [quantity, setQuantity] = useState(1);
@@ -65,7 +65,13 @@ export default function MenuSection() {
   const openCustomizeModal = (item: MenuItem) => {
     playBeep('click');
     setCustomizingItem(item);
-    setSelectedSpice(item.spiceLevel);
+    if (item.category === 'steaks-grills') {
+      setSelectedPrepOption('Medium Rare');
+    } else if (item.category === 'beverages') {
+      setSelectedPrepOption('Cryo Chilled');
+    } else {
+      setSelectedPrepOption("Chef's Signature Balance");
+    }
     setSelectedAddons([]);
     setInstructions('');
     setQuantity(1);
@@ -74,7 +80,7 @@ export default function MenuSection() {
   const quickAddToCart = (e: React.MouseEvent, item: MenuItem) => {
     e.stopPropagation();
     playBeep('add');
-    addToCart(item, 1, item.spiceLevel, [], '');
+    addToCart(item, 1, 0, [], '');
   };
 
   const toggleAddon = (addon: { id: string; name: string; price: number }) => {
@@ -88,18 +94,22 @@ export default function MenuSection() {
 
   const handleAddCustomizedItem = () => {
     if (!customizingItem) return;
-    addToCart(customizingItem, quantity, selectedSpice, selectedAddons, instructions);
+    const finalInstructions = instructions
+      ? `[Prep: ${selectedPrepOption}] ${instructions}`
+      : `Prep: ${selectedPrepOption}`;
+    addToCart(customizingItem, quantity, 0, selectedAddons, finalInstructions);
     setCustomizingItem(null);
   };
 
   const filteredItems = menuItems.filter((item) => {
     const matchesCategory = selectedCategory === 'all' || item.category === selectedCategory;
-    const matchesDietary = dietaryFilter === 'all' || item.dietary === dietaryFilter;
-    const q = searchQuery.toLowerCase();
+    const matchesChefSpecial = !chefSpecialsOnly || item.isChefSpecial;
+    const q = searchQuery.toLowerCase().trim();
     const matchesQuery =
+      !q ||
       item.name.toLowerCase().includes(q) ||
       item.description.toLowerCase().includes(q);
-    return matchesCategory && matchesDietary && matchesQuery;
+    return matchesCategory && matchesChefSpecial && matchesQuery;
   });
 
   const groupedCategories = CATEGORIES.filter((c) => c.id !== 'all').map((cat) => ({
@@ -166,7 +176,7 @@ export default function MenuSection() {
             <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
             <input
               type="text"
-              placeholder="Search across 50 dishes (e.g. biryani, dim sum, mojito, kunafa)..."
+              placeholder="Search across 50 dishes (e.g. ribeye, lobster, tagliatelle, mojito)..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="w-full bg-[#090d16] border border-gray-800 focus:border-amber-400 rounded-xl pl-10 pr-4 py-2.5 text-xs text-white placeholder-gray-500 outline-none transition-colors font-mono"

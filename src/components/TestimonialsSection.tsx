@@ -9,7 +9,7 @@ const TESTIMONIALS = [
     title: 'Senior Culinary Critic, Haute Gastronomy Review',
     rating: 5,
     quote:
-      'Savoria has redefined modern luxury dining. The Kashmiri Saffron Murgh Makhani paired with their Truffle Tagliatelle is culinary wizardry. And having live cyber order telemetry right to your door is breathtaking.',
+      'Savoria has redefined modern luxury dining. The Prime Dry-Aged Ribeye paired with their Butter-Poached Maine Lobster is culinary wizardry. And having live cyber order telemetry right to your door is breathtaking.',
   },
   {
     name: 'Marcus Sterling',
@@ -23,7 +23,7 @@ const TESTIMONIALS = [
     title: 'Michelin-Trained Culinary Consultant',
     rating: 5,
     quote:
-      'The Szechuan Firecracker Chicken has the authentic Sichuan peppercorn numbing sensation and wok hei that is exceptionally executed. 10/10 perfection.',
+      'The 45-day dry-aged Black Angus Ribeye has an exquisite charcoal sear with bone marrow butter that rivals the finest Parisian steak institutions. 10/10 perfection.',
   },
 ];
 

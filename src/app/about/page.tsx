@@ -21,20 +21,20 @@ const CHEF_COUNCIL = [
     quote: 'True pizza is an ethereal balance of living yeast, volcanic heat, and sacred Italian patience.',
   },
   {
-    name: 'Grand Master Chen Wei',
-    role: 'Head of Asian Wok & Ancestral High Flame',
-    origin: 'Chengdu, Sichuan',
-    image: 'https://images.unsplash.com/photo-1607631568010-a87245c0daf8?auto=format&fit=crop&w=700&q=80',
-    bio: 'Trained for 28 years across Chengdu and Hong Kong. Master Wei controls the ferocious 900°C cast-iron dragon breath that locks intense wok hei into our noodles and wagyu in under 15 seconds.',
-    quote: 'Wok hei is not merely smoke; it is the breath of the wok capturing the soul of the ingredient.',
+    name: 'Chef Alexander Vance',
+    role: 'Master of Hardwood Charcoal & Prime Dry-Aged Steaks',
+    origin: 'Austin, Texas',
+    image: 'https://images.unsplash.com/photo-1577219491135-ce391730fb2c?auto=format&fit=crop&w=700&q=80',
+    bio: 'Master of prime beef cuts and 45-day dry-aging chambers. Alexander commands our custom white oak and hickory charcoal grills at 800°C for exceptional caramelization.',
+    quote: 'True fire sear creates an exquisite crust while locking pure marbling and natural juices within.',
   },
   {
-    name: 'Priya Nair',
-    role: 'Principal Alchemist of Royal Awadhi Dum & Spices',
-    origin: 'Lucknow & Kashmir',
+    name: 'Chef Genevieve Laurent',
+    role: 'Executive Director of Ocean Catch & French Coastal Haute Cuisine',
+    origin: 'Brittany, France',
     image: 'https://images.unsplash.com/photo-1595273670150-bd0c3c392e46?auto=format&fit=crop&w=700&q=80',
-    bio: 'Descendant of royal Awadhi court culinary masters. Priya blends hand-harvested Iranian saffron stigmas with 24-hour slow charcoal dum braising inside sealed clay pots.',
-    quote: 'A royal dum cannot be rushed. It requires quiet embers, sealed dough, and total devotion to aroma.',
+    bio: 'Trained at three Michelin-starred Parisian institutions. Genevieve curates our wild Atlantic catch, butter-poached Maine lobster tails, and delicate veloutés.',
+    quote: 'The ocean demands reverence; we cook shellfish with delicate browned butter and precision timing.',
   },
   {
     name: 'Elena Vance',
@@ -91,7 +91,7 @@ export default function AboutPage() {
               </h1>
 
               <p className="text-gray-300 text-sm sm:text-base max-w-2xl mx-auto font-light leading-relaxed">
-                We set out to reinvent the culinary ritual — uniting ancestral high-flame wok mastery, royal clay-pot slow braising, and volcanic stone ovens with modern culinary telemetry.
+                We set out to reinvent the culinary ritual — uniting 800°C hardwood charcoal steak searing, wild oceanic seafood catches, and volcanic stone hearths with modern culinary telemetry.
               </p>
             </div>
 

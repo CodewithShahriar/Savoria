@@ -3,7 +3,7 @@ export interface MenuItem {
   name: string;
   description: string;
   price: number;
-  category: 'chinese-thai' | 'indian' | 'pizza-pasta' | 'starters' | 'beverages' | 'desserts';
+  category: 'steaks-grills' | 'seafood' | 'pizza-pasta' | 'starters' | 'beverages' | 'desserts';
   image: string;
   spiceLevel: number; // 0 to 3
   isChefSpecial?: boolean;

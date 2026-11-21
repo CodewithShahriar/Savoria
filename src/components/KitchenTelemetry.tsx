@@ -31,11 +31,11 @@ export default function KitchenTelemetry() {
               <Flame className="w-4 h-4 text-red-500" />
             </div>
             <div className="space-y-1">
-              <span className="text-3xl font-mono font-extrabold text-white">892°C</span>
-              <p className="text-xs text-red-400 font-mono">Wok Hei Flambé Peak</p>
+              <span className="text-3xl font-mono font-extrabold text-white">820°C</span>
+              <p className="text-xs text-red-400 font-mono">Hardwood Charcoal Sear Peak</p>
             </div>
             <p className="text-[11px] text-gray-400 font-light">
-              Cast-iron surface searing at ultra-high flame for instantaneous caramelization.
+              Texas white oak embers searing prime cuts at ultra-high heat for instantaneous crust caramelization.
             </p>
           </div>
 

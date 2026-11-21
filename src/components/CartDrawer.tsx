@@ -81,7 +81,7 @@ export default function CartDrawer() {
               </div>
               <p className="text-gray-300 font-medium">Your order tray is currently empty</p>
               <p className="text-gray-500 text-xs max-w-xs">
-                Explore our curated menu of Chinese, Thai, Awadhi, and wood-fired artisan dishes.
+                Explore our curated menu of prime dry-aged steaks, Atlantic seafood, and wood-fired artisan dishes.
               </p>
             </div>
           ) : (
