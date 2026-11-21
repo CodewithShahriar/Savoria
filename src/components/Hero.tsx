@@ -3,41 +3,29 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useCart } from '@/context/CartContext';
-import { ArrowRight, ChevronLeft, ChevronRight, Sparkles, UtensilsCrossed, ShieldCheck } from 'lucide-react';
+import { ArrowRight, ChevronLeft, ChevronRight, Sparkles } from 'lucide-react';
 
 const HERO_DISHES = [
   {
     id: 'hero-1',
     name: 'Charred Szechuan Skewers & Garden Greens',
-    tagline: 'Flame-seared skewers with crushed Sichuan peppercorns, scallions, and crisp mountain herbs.',
     cuisine: 'Asian Wok & Fire',
-    price: 28,
-    image: 'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=1200&q=85',
+    image: 'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=1400&q=85',
     accent: '#f59e0b',
-    prepTime: '15 min',
-    chef: 'Chef Chen Wei',
   },
   {
     id: 'hero-2',
-    name: 'Kashmiri Saffron Murgh & Royal Dum Cauldron',
-    tagline: '24-hour slow clay-pot braise infused with pure saffron stigmas, churned cultured cream and warm spices.',
+    name: 'Kashmiri Saffron Murgh & Royal Dum Braise',
     cuisine: 'Royal Awadhi Heritage',
-    price: 34,
-    image: 'https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=1200&q=85',
+    image: 'https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=1400&q=85',
     accent: '#d97706',
-    prepTime: '20 min',
-    chef: 'Chef Priya Nair',
   },
   {
     id: 'hero-3',
-    name: 'Wood-Fired Neapolitan Truffle & Burrata Skillet',
-    tagline: '48-hour fermented mother dough, volcanic hearth-blistered crust, San Marzano DOP, and fresh pugliese burrata.',
+    name: 'Wood-Fired Neapolitan Truffle & Burrata Hearth',
     cuisine: 'Artisan Stone Hearth',
-    price: 29,
-    image: 'https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=1200&q=85',
+    image: 'https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=1400&q=85',
     accent: '#06b6d4',
-    prepTime: '12 min',
-    chef: 'Chef Marco Bellini',
   },
 ];
 
@@ -45,7 +33,7 @@ export default function Hero() {
   const { playBeep } = useCart();
   const [activeDishIdx, setActiveDishIdx] = useState(0);
 
-  // Auto-rotate the 3 hero dishes every 4 seconds
+  // Auto-rotate the 3 hero dishes every 4.2 seconds
   useEffect(() => {
     const timer = setInterval(() => {
       setActiveDishIdx((prev) => (prev + 1) % HERO_DISHES.length);
@@ -66,14 +54,14 @@ export default function Hero() {
   };
 
   return (
-    <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden bg-[#07090e] border-b border-gray-800/80">
+    <section className="relative min-h-[92vh] flex items-center justify-center overflow-hidden bg-[#07090e] border-b border-gray-800/80">
       {/* Dark luxury slate texture overlay inspired by ref 1 */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-neutral-900/60 via-[#07090e] to-[#040609] pointer-events-none" />
       <div className="absolute inset-0 bg-[radial-gradient(#ffffff08_1px,transparent_1px)] [background-size:24px_24px] pointer-events-none opacity-40" />
       
-      {/* Ambient glow matching active dish */}
+      {/* Dynamic ambient color glow behind the plate */}
       <div
-        className="absolute top-1/4 right-10 w-[550px] h-[550px] rounded-full blur-[170px] opacity-25 pointer-events-none transition-all duration-1000"
+        className="absolute top-1/4 right-8 w-[600px] h-[600px] rounded-full blur-[180px] opacity-25 pointer-events-none transition-all duration-1000"
         style={{ backgroundColor: activeDish.accent }}
       />
 
@@ -103,8 +91,15 @@ export default function Hero() {
               Where ancestral wok flame meets hand-stretched Neapolitan stone hearths and molecular mixology. Savoria is a multisensory sanctuary crafted for those who demand the extraordinary.
             </p>
 
+            {/* Dynamic Current Dish Subtitle on the left */}
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-black/40 border border-gray-800 text-xs font-mono text-gray-300 transition-all duration-500">
+              <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse" />
+              <span className="text-gray-400">Featured Creation:</span>
+              <span className="text-amber-300 font-bold">{activeDish.name}</span>
+            </div>
+
             {/* CTA Buttons matching reference 1 primary gold + secondary text/ghost */}
-            <div className="flex flex-wrap items-center gap-4 pt-3">
+            <div className="flex flex-wrap items-center gap-4 pt-2">
               <Link
                 href="/menu"
                 onClick={() => playBeep('click')}
@@ -125,7 +120,7 @@ export default function Hero() {
             </div>
 
             {/* Pagination 3-Dot Indicators matching Reference 1 (bottom left) */}
-            <div className="flex items-center gap-2 pt-6">
+            <div className="flex items-center gap-2.5 pt-4">
               {HERO_DISHES.map((dish, idx) => (
                 <button
                   key={dish.id}
@@ -133,76 +128,63 @@ export default function Hero() {
                     playBeep('click');
                     setActiveDishIdx(idx);
                   }}
-                  className={`transition-all duration-300 rounded-full ${
+                  className={`transition-all duration-500 rounded-full ${
                     activeDishIdx === idx
-                      ? 'w-7 h-2.5 bg-amber-400 shadow-[0_0_10px_#f59e0b]'
+                      ? 'w-8 h-2.5 bg-amber-400 shadow-[0_0_12px_#f59e0b]'
                       : 'w-2.5 h-2.5 bg-gray-600 hover:bg-gray-400'
                   }`}
-                  title={`View Dish ${idx + 1}: ${dish.name}`}
+                  title={`View Creation ${idx + 1}: ${dish.name}`}
                   aria-label={`Select dish ${idx + 1}`}
                 />
               ))}
-              <span className="text-[10px] font-mono text-gray-400 ml-2">
+              <span className="text-[11px] font-mono text-gray-400 ml-2">
                 0{activeDishIdx + 1} / 0{HERO_DISHES.length}
               </span>
             </div>
           </div>
 
-          {/* Right Column: Large Gourmet Sizzling Plate / Cast Iron Skillet matching Ref 1 */}
+          {/* Right Column: Full Food Picture inside Round Box matching Reference 1 */}
           <div className="lg:col-span-6 flex flex-col items-center justify-center relative">
             <div className="relative w-full max-w-lg aspect-square flex items-center justify-center">
               
-              {/* Outer decorative dark skillet rim border */}
-              <div className="absolute inset-0 rounded-full border-[10px] border-[#141824] shadow-2xl shadow-black pointer-events-none" />
-              <div className="absolute inset-3 rounded-full border border-amber-500/20 pointer-events-none" />
+              {/* Outer decorative dark skillet / cast iron rim matching ref 1 */}
+              <div className="absolute inset-0 rounded-full border-[12px] border-[#131622] shadow-2xl shadow-black pointer-events-none z-10" />
+              <div className="absolute inset-2 rounded-full border border-white/10 pointer-events-none z-10" />
 
-              {/* Main Food Imagery with smooth crossfade */}
-              <div className="relative w-[92%] aspect-square rounded-full overflow-hidden shadow-2xl border-4 border-[#1e2333] group">
-                <img
-                  key={activeDish.image}
-                  src={activeDish.image}
-                  alt={activeDish.name}
-                  className="w-full h-full object-cover transition-all duration-1000 scale-105 group-hover:scale-110 animate-in fade-in zoom-in-95"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent" />
-
-                {/* Overlaid Gourmet Details on the Skillet */}
-                <div className="absolute bottom-6 left-6 right-6 text-center space-y-1">
-                  <span className="text-[10px] font-mono uppercase tracking-widest text-amber-400 bg-black/60 px-2.5 py-0.5 rounded-full border border-amber-500/30">
-                    {activeDish.cuisine} • {activeDish.chef}
-                  </span>
-                  <h3 className="text-xl sm:text-2xl font-bold font-serif text-white drop-shadow-md">
-                    {activeDish.name}
-                  </h3>
-                  <p className="text-[11px] text-gray-300 font-light line-clamp-1 max-w-xs mx-auto">
-                    {activeDish.tagline}
-                  </p>
-                </div>
+              {/* Round Box with 100% Full Food Background & Buttery Smooth Crossfade */}
+              <div className="relative w-full h-full rounded-full overflow-hidden shadow-2xl bg-black">
+                {HERO_DISHES.map((dish, idx) => (
+                  <img
+                    key={dish.id}
+                    src={dish.image}
+                    alt={dish.name}
+                    className={`absolute inset-0 w-full h-full object-cover transition-all duration-1000 ease-in-out ${
+                      activeDishIdx === idx
+                        ? 'opacity-100 scale-100'
+                        : 'opacity-0 scale-105 pointer-events-none'
+                    }`}
+                  />
+                ))}
               </div>
 
               {/* Bottom Navigation Arrow Buttons matching Reference 1 (bottom right of skillet) */}
-              <div className="absolute -bottom-4 right-6 sm:right-10 flex items-center gap-2 bg-[#0c101a] p-1.5 rounded-full border border-gray-700 shadow-xl z-20">
+              <div className="absolute -bottom-4 right-6 sm:right-10 flex items-center gap-2 bg-[#0c101a] p-1.5 rounded-full border border-gray-700 shadow-2xl z-20">
                 <button
                   onClick={handlePrev}
-                  className="w-9 h-9 rounded-full bg-black/70 hover:bg-amber-500 text-gray-300 hover:text-black flex items-center justify-center transition-all"
+                  className="w-9 h-9 rounded-full bg-black/80 hover:bg-amber-500 text-gray-300 hover:text-black flex items-center justify-center transition-all"
                   aria-label="Previous Dish"
                 >
                   <ChevronLeft className="w-4 h-4 stroke-[2.5]" />
                 </button>
                 <button
                   onClick={handleNext}
-                  className="w-9 h-9 rounded-full bg-black/70 hover:bg-amber-500 text-gray-300 hover:text-black flex items-center justify-center transition-all"
+                  className="w-9 h-9 rounded-full bg-black/80 hover:bg-amber-500 text-gray-300 hover:text-black flex items-center justify-center transition-all"
                   aria-label="Next Dish"
                 >
                   <ChevronRight className="w-4 h-4 stroke-[2.5]" />
                 </button>
               </div>
 
-              {/* Live Freshness / Thermal Badge */}
-              <div className="absolute top-4 left-4 px-3 py-1.5 rounded-full glass-panel border border-amber-500/40 text-[10px] font-mono text-gray-200 shadow-xl backdrop-blur-xl flex items-center gap-1.5 pointer-events-none">
-                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
-                <span>PREP: {activeDish.prepTime}</span>
-              </div>
             </div>
           </div>
 
