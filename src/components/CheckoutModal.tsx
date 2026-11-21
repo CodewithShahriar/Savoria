@@ -387,7 +387,7 @@ export default function CheckoutModal() {
 
       {/* Modern Apple Pay / Google Pay Authorization Simulation Sheet */}
       {showGatewayModal && (
-        <div className="fixed inset-0 z-60 flex items-end sm:items-center justify-center p-4 bg-black/85 backdrop-blur-md">
+        <div className="fixed inset-0 z-[60] flex items-end sm:items-center justify-center p-4 bg-black/85 backdrop-blur-md">
           <div className="w-full max-w-sm rounded-3xl bg-[#141721] text-white border border-gray-700/80 overflow-hidden shadow-2xl relative animate-in slide-in-from-bottom-6 sm:zoom-in-95 duration-200">
             {/* Sheet Header */}
             <div className="p-5 border-b border-gray-800 flex items-center justify-between">

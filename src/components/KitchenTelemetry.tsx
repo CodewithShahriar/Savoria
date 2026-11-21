@@ -46,11 +46,11 @@ export default function KitchenTelemetry() {
               <Clock className="w-4 h-4 text-amber-400" />
             </div>
             <div className="space-y-1">
-              <span className="text-3xl font-mono font-extrabold text-white">140°C</span>
-              <p className="text-xs text-amber-400 font-mono">24H Claypot Dum Embers</p>
+              <span className="text-3xl font-mono font-extrabold text-white">62°C</span>
+              <p className="text-xs text-amber-400 font-mono">Lobster Butter-Poach Tank</p>
             </div>
             <p className="text-[11px] text-gray-400 font-light">
-              Slow radiant heat locking steam and aroma inside sealed earthen clay pots.
+              Precision thermal-controlled clarified Meyer lemon butter immersion for tender shellfish texture.
             </p>
           </div>
 

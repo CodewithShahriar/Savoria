@@ -139,16 +139,16 @@ export default function CulinaryWorlds() {
               </p>
 
               {/* Technique Specs */}
-              <div className="grid grid-cols-3 gap-4 p-4 rounded-2xl bg-black/40 border border-gray-800/80 font-mono text-xs">
-                <div>
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 p-4 rounded-2xl bg-black/40 border border-gray-800/80 font-mono text-xs">
+                <div className="flex sm:block justify-between items-center">
                   <span className="text-gray-500 block text-[10px]">CRAFT HEAT</span>
                   <span className="text-white font-bold">{current.stats.heat}</span>
                 </div>
-                <div className="border-l border-gray-800 pl-4">
+                <div className="border-t sm:border-t-0 sm:border-l border-gray-800 pt-2 sm:pt-0 sm:pl-4 flex sm:block justify-between items-center">
                   <span className="text-gray-500 block text-[10px]">TECHNIQUE</span>
                   <span className="text-amber-400 font-bold">{current.stats.prep}</span>
                 </div>
-                <div className="border-l border-gray-800 pl-4">
+                <div className="border-t sm:border-t-0 sm:border-l border-gray-800 pt-2 sm:pt-0 sm:pl-4 flex sm:block justify-between items-center">
                   <span className="text-gray-500 block text-[10px]">CRITIC SCORE</span>
                   <span className="text-emerald-400 font-bold">{current.stats.rating}</span>
                 </div>

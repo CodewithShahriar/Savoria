@@ -92,7 +92,7 @@ export default function ChefShowcase() {
             onClick={() => playBeep('click')}
             className="inline-flex items-center gap-2 text-xs font-mono text-amber-400 hover:text-amber-300 tracking-wider uppercase group"
           >
-            <span>View Full Menu Collection (18+ Dishes)</span>
+            <span>View Full Menu Collection (50 Dishes)</span>
             <ArrowRight className="w-4 h-4 group-hover:translate-x-1.5 transition-transform" />
           </Link>
         </div>
