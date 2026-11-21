@@ -3,16 +3,43 @@
 import React, { useState, useEffect } from 'react';
 import { MenuItem } from '@/types';
 import { useCart } from '@/context/CartContext';
-import { Flame, Star, Clock, Plus, Check, Search, Sparkles, Filter, X, ChevronRight, Sliders, ShieldCheck } from 'lucide-react';
+import {
+  Flame,
+  Star,
+  Clock,
+  Plus,
+  Check,
+  Search,
+  Sparkles,
+  Filter,
+  X,
+  ChevronRight,
+  Sliders,
+  ShieldCheck,
+  Utensils,
+  Waves,
+  ChefHat,
+  Wine,
+  CakeSlice,
+  LucideIcon
+} from 'lucide-react';
 
-const CATEGORIES = [
-  { id: 'all', label: 'All Dishes', icon: '✨', sectionId: '' },
-  { id: 'starters', label: 'Starters & Raw Bar', icon: '🦪', sectionId: 'cat-starters', subtitle: 'Gourmet Caviar, Carpaccio & French Starters' },
-  { id: 'steaks-grills', label: 'Prime Steaks & Grills', icon: '🥩', sectionId: 'cat-steaks-grills', subtitle: 'Dry-Aged Angus Ribeye, Filet Mignon & Colorado Lamb' },
-  { id: 'seafood', label: 'Ocean Catch & Seafood', icon: '🦞', sectionId: 'cat-seafood', subtitle: 'Butter-Poached Maine Lobster, Sea Bass & Scallops' },
-  { id: 'pizza-pasta', label: 'Artisan Hearth & Pasta', icon: '🍕', sectionId: 'cat-pizza-pasta', subtitle: 'Neapolitan Sourdough Hearth & Fresh Truffle Tagliatelle' },
-  { id: 'beverages', label: 'Cocktails & Mixology', icon: '🍸', sectionId: 'cat-beverages', subtitle: 'Aged Whiskeys, Molecular Mixology & Fine Beverages' },
-  { id: 'desserts', label: 'Desserts & Patisserie', icon: '🍰', sectionId: 'cat-desserts', subtitle: '24K Molten Gateau, French Choux & Fine Sweets' },
+interface CategoryConfig {
+  id: string;
+  label: string;
+  icon: LucideIcon;
+  sectionId: string;
+  subtitle?: string;
+}
+
+const CATEGORIES: CategoryConfig[] = [
+  { id: 'all', label: 'All Dishes', icon: Sparkles, sectionId: '' },
+  { id: 'starters', label: 'Starters & Raw Bar', icon: Utensils, sectionId: 'cat-starters', subtitle: 'Gourmet Caviar, Carpaccio & French Starters' },
+  { id: 'steaks-grills', label: 'Steaks & Grills', icon: Flame, sectionId: 'cat-steaks-grills', subtitle: 'Dry-Aged Angus Ribeye, Filet Mignon & Colorado Lamb' },
+  { id: 'seafood', label: 'Ocean Catch & Seafood', icon: Waves, sectionId: 'cat-seafood', subtitle: 'Butter-Poached Maine Lobster, Sea Bass & Scallops' },
+  { id: 'pizza-pasta', label: 'Stone Hearth & Pasta', icon: ChefHat, sectionId: 'cat-pizza-pasta', subtitle: 'Neapolitan Sourdough Hearth & Fresh Truffle Tagliatelle' },
+  { id: 'beverages', label: 'Cocktails & Mixology', icon: Wine, sectionId: 'cat-beverages', subtitle: 'Aged Whiskeys, Molecular Mixology & Fine Beverages' },
+  { id: 'desserts', label: 'Desserts & Patisserie', icon: CakeSlice, sectionId: 'cat-desserts', subtitle: '24K Molten Gateau, French Choux & Fine Sweets' },
 ];
 
 export default function MenuSection() {
@@ -140,24 +167,25 @@ export default function MenuSection() {
 
         {/* Sticky Floating Category Jumper Bar */}
         <div className="sticky top-20 z-30 py-3 bg-[#04060a]/90 backdrop-blur-2xl border-b border-gray-800/80 mb-10 -mx-4 px-4 sm:-mx-8 sm:px-8 transition-all">
-          <div className="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none">
+          <div className="flex items-center gap-2 overflow-x-auto lg:flex-wrap lg:justify-center pb-1 scrollbar-none">
             {CATEGORIES.map((cat) => {
               const active = selectedCategory === cat.id;
               const count = cat.id === 'all' 
                 ? menuItems.length 
                 : menuItems.filter((m) => m.category === cat.id).length;
+              const IconComp = cat.icon;
 
               return (
                 <button
                   key={cat.id}
                   onClick={() => scrollToCategory(cat)}
-                  className={`flex items-center gap-2 px-4 py-2.5 rounded-full text-xs font-mono transition-all duration-300 whitespace-nowrap border ${
+                  className={`flex items-center gap-2 px-3.5 sm:px-4 py-2 sm:py-2.5 rounded-full text-xs font-mono transition-all duration-300 whitespace-nowrap border ${
                     active
                       ? 'bg-amber-400 text-black font-bold shadow-lg shadow-amber-400/25 border-amber-400 scale-105'
                       : 'glass-panel text-gray-400 hover:text-white border-gray-800 hover:border-gray-700'
                   }`}
                 >
-                  <span>{cat.icon}</span>
+                  <IconComp className={`w-3.5 h-3.5 ${active ? 'text-black' : 'text-amber-400'}`} />
                   <span>{cat.label}</span>
                   <span className={`text-[10px] px-2 py-0.5 rounded-full font-bold ${
                     active ? 'bg-black/25 text-black' : 'bg-gray-800 text-amber-300'
@@ -243,12 +271,14 @@ export default function MenuSection() {
                 <div className="glass-panel p-6 rounded-3xl border border-white/5 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                   <div className="space-y-1">
                     <div className="flex items-center gap-3">
-                      <span className="text-2xl">{catGroup.icon}</span>
+                      <div className="w-10 h-10 rounded-2xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-400 shrink-0">
+                        <catGroup.icon className="w-5 h-5" />
+                      </div>
                       <h2 className="text-2xl sm:text-3xl font-black text-white uppercase tracking-wider">
                         {catGroup.label}
                       </h2>
                     </div>
-                    <p className="text-xs text-gray-400 font-light font-mono pl-9">
+                    <p className="text-xs text-gray-400 font-light font-mono pl-13">
                       {catGroup.subtitle}
                     </p>
                   </div>
