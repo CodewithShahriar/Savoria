@@ -86,13 +86,6 @@ export default function Navbar() {
                 <Compass className="w-4 h-4 text-cyan-400" />
                 Live Tracker
               </button>
-              <Link
-                href="/admin"
-                onClick={() => playBeep('click')}
-                className="text-xs font-mono text-gray-400 hover:text-amber-300 px-2.5 py-1 rounded border border-gray-700 hover:border-amber-500/40 transition-all"
-              >
-                Kitchen KDS
-              </Link>
             </nav>
 
             {/* Action Buttons */}
@@ -182,13 +175,6 @@ export default function Navbar() {
               <Compass className="w-4 h-4 text-cyan-400" />
               Live Order Tracker
             </button>
-            <Link
-              href="/admin"
-              onClick={() => setMobileMenuOpen(false)}
-              className="block text-amber-300 text-xs font-mono py-2"
-            >
-              ⚙️ Kitchen Display System (Admin)
-            </Link>
           </div>
         )}
       </header>

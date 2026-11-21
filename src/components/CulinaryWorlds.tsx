@@ -12,7 +12,7 @@ const WORLDS = [
     description: 'Blistering 900°C cast-iron woks sealing in wild peppercorns, hand-pulled noodles, and fresh sea king prawns in seconds.',
     technique: 'Wok Hei Flash-Sear (900°C)',
     origin: 'Chengdu & Bangkok',
-    image: 'https://images.unsplash.com/photo-1541696432-82c6da8ce7bf?auto=format&fit=crop&w=1000&q=80',
+    image: 'https://images.unsplash.com/photo-1525755662778-989d0524087e?auto=format&fit=crop&w=1000&q=80',
     color: '#ef4444',
     accentText: 'text-red-400',
     stats: { heat: 'High Flame', prep: 'Wok-Tossed', rating: '4.9★' },
