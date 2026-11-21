@@ -1,8 +1,18 @@
 import { MenuItem, Order, TableReservation } from '@/types';
 import fs from 'fs';
 import path from 'path';
+import os from 'os';
 
-const DATA_FILE = path.join(process.cwd(), 'src', 'data', 'db.json');
+// Hybrid serverless storage:
+// On Vercel / AWS Lambda, use os.tmpdir() for writes and fallback to memory cache if filesystem is read-only
+const isServerless = process.env.VERCEL === '1' || process.env.AWS_LAMBDA_FUNCTION_NAME !== undefined;
+const DATA_FILE = isServerless
+  ? path.join(os.tmpdir(), 'savoria_db.json')
+  : path.join(process.cwd(), 'src', 'data', 'db.json');
+
+const BUNDLED_FILE = path.join(process.cwd(), 'src', 'data', 'db.json');
+
+let memoryDb: DatabaseSchema | null = null;
 
 interface DatabaseSchema {
   menu: MenuItem[];
@@ -823,42 +833,67 @@ const INITIAL_ORDERS: Order[] = [
 const INITIAL_RESERVATIONS: TableReservation[] = [];
 
 function ensureDbFile(): DatabaseSchema {
-  const dir = path.dirname(DATA_FILE);
-  if (!fs.existsSync(dir)) {
-    fs.mkdirSync(dir, { recursive: true });
+  if (memoryDb) {
+    return memoryDb;
   }
 
-  if (!fs.existsSync(DATA_FILE)) {
-    const initialData: DatabaseSchema = {
-      menu: INITIAL_MENU,
-      orders: INITIAL_ORDERS,
-      reservations: INITIAL_RESERVATIONS,
-    };
-    fs.writeFileSync(DATA_FILE, JSON.stringify(initialData, null, 2), 'utf-8');
-    return initialData;
-  }
-
+  // 1. Try reading from writable DATA_FILE
   try {
-    const raw = fs.readFileSync(DATA_FILE, 'utf-8');
-    return JSON.parse(raw);
+    if (fs.existsSync(DATA_FILE)) {
+      const raw = fs.readFileSync(DATA_FILE, 'utf-8');
+      memoryDb = JSON.parse(raw);
+      return memoryDb!;
+    }
   } catch (err) {
-    console.error('Error reading DB file, reinitializing', err);
-    const initialData: DatabaseSchema = {
-      menu: INITIAL_MENU,
-      orders: INITIAL_ORDERS,
-      reservations: INITIAL_RESERVATIONS,
-    };
-    fs.writeFileSync(DATA_FILE, JSON.stringify(initialData, null, 2), 'utf-8');
-    return initialData;
+    // ignore
   }
+
+  // 2. Try reading from bundled static db.json (read-only copy)
+  try {
+    if (fs.existsSync(BUNDLED_FILE)) {
+      const raw = fs.readFileSync(BUNDLED_FILE, 'utf-8');
+      memoryDb = JSON.parse(raw);
+      return memoryDb!;
+    }
+  } catch (err) {
+    // ignore
+  }
+
+  // 3. Fallback to initial seeds
+  const initialData: DatabaseSchema = {
+    menu: INITIAL_MENU,
+    orders: INITIAL_ORDERS,
+    reservations: INITIAL_RESERVATIONS,
+  };
+  memoryDb = initialData;
+
+  // Attempt to write initial state if directory is writable
+  try {
+    const dir = path.dirname(DATA_FILE);
+    if (!fs.existsSync(dir)) {
+      fs.mkdirSync(dir, { recursive: true });
+    }
+    fs.writeFileSync(DATA_FILE, JSON.stringify(initialData, null, 2), 'utf-8');
+  } catch (err) {
+    // Safe on read-only serverless filesystems
+  }
+
+  return memoryDb;
 }
 
 function saveDb(data: DatabaseSchema): void {
-  const dir = path.dirname(DATA_FILE);
-  if (!fs.existsSync(dir)) {
-    fs.mkdirSync(dir, { recursive: true });
+  memoryDb = data;
+  try {
+    const dir = path.dirname(DATA_FILE);
+    if (!fs.existsSync(dir)) {
+      fs.mkdirSync(dir, { recursive: true });
+    }
+    fs.writeFileSync(DATA_FILE, JSON.stringify(data, null, 2), 'utf-8');
+  } catch (err) {
+    // On serverless read-only filesystems (e.g. Vercel), disk write may fail,
+    // but memoryDb retains all orders and reservations for the lifetime of the instance
+    console.warn('Filesystem write bypassed on serverless environment');
   }
-  fs.writeFileSync(DATA_FILE, JSON.stringify(data, null, 2), 'utf-8');
 }
 
 export const db = {

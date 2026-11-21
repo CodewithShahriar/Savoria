@@ -735,6 +735,79 @@
   ],
   "orders": [
     {
+      "id": "SAV-77020",
+      "customer": {
+        "name": "Test Customer",
+        "phone": "+1 555-000-1111",
+        "email": "",
+        "address": "123 Test Street",
+        "zone": "Downtown Skyline District",
+        "notes": ""
+      },
+      "items": [
+        {
+          "cartItemId": "c-1",
+          "menuItem": {
+            "id": "st-1",
+            "name": "Test Prawns",
+            "price": 24
+          },
+          "quantity": 1,
+          "itemTotal": 24
+        }
+      ],
+      "subtotal": 24,
+      "deliveryFee": 5,
+      "vat": 1,
+      "discount": 0,
+      "total": 30,
+      "paymentMethod": "apple_pay",
+      "paymentStatus": "paid",
+      "transactionId": "APAY-XZFZHK08",
+      "status": "confirmed",
+      "createdAt": "2026-11-21T17:18:33.090Z",
+      "estimatedDeliveryMinutes": 30,
+      "rider": {
+        "name": "Julian Hayes",
+        "phone": "+1 (555) 019-2834",
+        "bikeNumber": "Cyber Transit NY-4921",
+        "rating": 4.98
+      },
+      "statusTimeline": [
+        {
+          "status": "confirmed",
+          "title": "Order Confirmed",
+          "description": "Order SAV-77020 received & payment secured. Transmitted to kitchen queue.",
+          "time": "11:18 PM",
+          "completed": true
+        },
+        {
+          "status": "cooking",
+          "title": "Kitchen Master Crafting",
+          "description": "Head chef is actively preparing and seasoning your dishes.",
+          "completed": false
+        },
+        {
+          "status": "quality_check",
+          "title": "Quality & Thermal Sealed",
+          "description": "Multi-point inspection passed & hermetically sealed in thermo packaging.",
+          "completed": false
+        },
+        {
+          "status": "on_the_way",
+          "title": "Cyber Rider En Route",
+          "description": "Assigned courier Julian Hayes has picked up your package.",
+          "completed": false
+        },
+        {
+          "status": "delivered",
+          "title": "Delivered & Bon Appétit",
+          "description": "Enjoy your gourmet Savoria feast!",
+          "completed": false
+        }
+      ]
+    },
+    {
       "id": "SAV-89241",
       "customer": {
         "name": "Alexander Vance",
