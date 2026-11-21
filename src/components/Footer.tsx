@@ -12,8 +12,8 @@ export default function Footer() {
           {/* Brand Info */}
           <div className="space-y-4">
             <div className="flex items-center gap-3">
-              <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-amber-400 to-amber-700 flex items-center justify-center font-bold text-black font-serif text-lg">
-                S
+              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-amber-400/20 to-amber-700/20 border border-amber-500/30 p-1 flex items-center justify-center bg-[#090d16]">
+                <img src="/logo.png" alt="Savoria Logo" className="w-full h-full object-contain" />
               </div>
               <span className="text-xl font-black tracking-widest text-white">SAVORIA</span>
             </div>

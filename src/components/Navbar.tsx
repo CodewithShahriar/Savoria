@@ -33,12 +33,12 @@ export default function Navbar() {
               onClick={() => playBeep('click')}
               className="flex items-center gap-3 group"
             >
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-amber-400 via-amber-600 to-amber-900 p-0.5 shadow-lg shadow-amber-500/20 group-hover:shadow-amber-500/40 transition-all duration-300">
-                <div className="w-full h-full bg-[#090d16] rounded-[10px] flex items-center justify-center">
-                  <span className="font-serif text-xl font-bold bg-gradient-to-r from-amber-200 to-amber-500 bg-clip-text text-transparent">
-                    S
-                  </span>
-                </div>
+              <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-amber-400/20 via-amber-600/10 to-amber-950/30 p-1 shadow-lg shadow-amber-500/15 group-hover:shadow-amber-500/35 border border-amber-500/30 transition-all duration-300 flex items-center justify-center bg-[#090d16]/90 backdrop-blur-md">
+                <img
+                  src="/logo.png"
+                  alt="Savoria Logo"
+                  className="w-full h-full object-contain filter drop-shadow-[0_2px_8px_rgba(245,158,11,0.25)] group-hover:scale-105 transition-transform"
+                />
               </div>
               <div className="flex flex-col">
                 <span className="text-2xl font-black tracking-widest bg-gradient-to-r from-amber-100 via-amber-300 to-amber-500 bg-clip-text text-transparent group-hover:brightness-110 transition-all">
