@@ -272,6 +272,9 @@ export default function MenuSection() {
                           alt={item.name}
                           className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                           loading="lazy"
+                          onError={(e) => {
+                            (e.target as HTMLImageElement).src = 'https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=700&q=80';
+                          }}
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent sm:hidden" />
                         
@@ -375,6 +378,9 @@ export default function MenuSection() {
                 src={customizingItem.image}
                 alt={customizingItem.name}
                 className="w-16 h-16 rounded-2xl object-cover border border-amber-500/30"
+                onError={(e) => {
+                  (e.target as HTMLImageElement).src = 'https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=700&q=80';
+                }}
               />
               <div>
                 <span className="text-[10px] font-mono text-cyan-400 uppercase tracking-widest">
