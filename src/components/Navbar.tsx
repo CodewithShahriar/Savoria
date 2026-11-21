@@ -61,6 +61,14 @@ export default function Navbar() {
                 Menu Collection
               </Link>
               <Link
+                href="/about"
+                onClick={() => playBeep('click')}
+                className="text-gray-300 hover:text-amber-400 transition-colors flex items-center gap-1.5"
+              >
+                <Sparkles className="w-4 h-4 text-amber-500/70" />
+                Our Story
+              </Link>
+              <Link
                 href="/contact"
                 onClick={() => playBeep('click')}
                 className="text-gray-300 hover:text-cyan-400 transition-colors flex items-center gap-1.5"
@@ -143,6 +151,16 @@ export default function Navbar() {
               className="block text-gray-200 hover:text-amber-400 font-medium py-2"
             >
               🍽️ Full Menu Collection
+            </Link>
+            <Link
+              href="/about"
+              onClick={() => {
+                setMobileMenuOpen(false);
+                playBeep('click');
+              }}
+              className="block text-gray-200 hover:text-amber-400 font-medium py-2"
+            >
+              ✨ Our Story & Heritage
             </Link>
             <Link
               href="/contact"

@@ -3,252 +3,211 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useCart } from '@/context/CartContext';
-import { ArrowRight, Sparkles, Star, Flame, Eye, Plus } from 'lucide-react';
+import { ArrowRight, ChevronLeft, ChevronRight, Sparkles, UtensilsCrossed, ShieldCheck } from 'lucide-react';
 
 const HERO_DISHES = [
   {
-    id: 'ct-1',
-    name: 'Szechuan Firecracker Chicken',
-    tagline: 'Wok-tossed fiery peppercorns & crisp scallions',
+    id: 'hero-1',
+    name: 'Charred Szechuan Skewers & Garden Greens',
+    tagline: 'Flame-seared skewers with crushed Sichuan peppercorns, scallions, and crisp mountain herbs.',
     cuisine: 'Asian Wok & Fire',
-    price: 26,
-    image: 'https://images.unsplash.com/photo-1525755662778-989d0524087e?auto=format&fit=crop&w=1000&q=85',
-    accent: '#f59e0b',
-    tags: ['Szechuan Num Pepper', 'Cold-Smoked Sesame', 'Flambé High Heat'],
-  },
-  {
-    id: 'in-1',
-    name: 'Kashmiri Saffron Murgh Makhani',
-    tagline: 'Velvety reduction with pure saffron & churned cream',
-    cuisine: 'Royal Awadhi Heritage',
-    price: 32,
-    image: 'https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?auto=format&fit=crop&w=1000&q=85',
-    accent: '#d97706',
-    tags: ['Iranian Saffron Stigmas', '24H Slow Dum Charcoal', 'Tandoor Charred'],
-  },
-  {
-    id: 'pp-2',
-    name: 'Quattro Formaggi Wood-Fired Pizza',
-    tagline: '48H fermented Neapolitan crust with artisan cheeses',
-    cuisine: 'Artisan Stone Hearth',
     price: 28,
-    image: 'https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=1000&q=85',
-    accent: '#06b6d4',
-    tags: ['Fior di Latte Mozzarella', 'Gorgonzola Dolce', 'San Marzano DOP'],
+    image: 'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=1200&q=85',
+    accent: '#f59e0b',
+    prepTime: '15 min',
+    chef: 'Chef Chen Wei',
   },
   {
-    id: 'bv-1',
-    name: 'Electric Neon Blue Mojito',
-    tagline: 'Crystal spearmint, Persian lime & silver sparkles',
-    cuisine: 'Molecular Mixology',
-    price: 14,
-    image: 'https://images.unsplash.com/photo-1551024709-8f23befc6f87?auto=format&fit=crop&w=1000&q=85',
-    accent: '#38bdf8',
-    tags: ['Crushed Crystal Ice', 'Edible Silver Shimmer', 'Hand-Muddled Mint'],
+    id: 'hero-2',
+    name: 'Kashmiri Saffron Murgh & Royal Dum Cauldron',
+    tagline: '24-hour slow clay-pot braise infused with pure saffron stigmas, churned cultured cream and warm spices.',
+    cuisine: 'Royal Awadhi Heritage',
+    price: 34,
+    image: 'https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=1200&q=85',
+    accent: '#d97706',
+    prepTime: '20 min',
+    chef: 'Chef Priya Nair',
+  },
+  {
+    id: 'hero-3',
+    name: 'Wood-Fired Neapolitan Truffle & Burrata Skillet',
+    tagline: '48-hour fermented mother dough, volcanic hearth-blistered crust, San Marzano DOP, and fresh pugliese burrata.',
+    cuisine: 'Artisan Stone Hearth',
+    price: 29,
+    image: 'https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=1200&q=85',
+    accent: '#06b6d4',
+    prepTime: '12 min',
+    chef: 'Chef Marco Bellini',
   },
 ];
 
 export default function Hero() {
-  const { playBeep, addToCart } = useCart();
+  const { playBeep } = useCart();
   const [activeDishIdx, setActiveDishIdx] = useState(0);
-  const [mouseOffset, setMouseOffset] = useState({ x: 0, y: 0 });
 
-  // Auto-change dish image every 3.8 seconds
+  // Auto-rotate the 3 hero dishes every 4 seconds
   useEffect(() => {
     const timer = setInterval(() => {
       setActiveDishIdx((prev) => (prev + 1) % HERO_DISHES.length);
-    }, 3800);
+    }, 4200);
     return () => clearInterval(timer);
   }, []);
 
   const activeDish = HERO_DISHES[activeDishIdx];
 
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    const rect = e.currentTarget.getBoundingClientRect();
-    const x = (e.clientX - rect.left) / rect.width - 0.5;
-    const y = (e.clientY - rect.top) / rect.height - 0.5;
-    setMouseOffset({ x: x * 18, y: y * 18 });
+  const handlePrev = () => {
+    playBeep('click');
+    setActiveDishIdx((prev) => (prev === 0 ? HERO_DISHES.length - 1 : prev - 1));
+  };
+
+  const handleNext = () => {
+    playBeep('click');
+    setActiveDishIdx((prev) => (prev + 1) % HERO_DISHES.length);
   };
 
   return (
-    <section className="relative min-h-[94vh] flex items-center justify-center overflow-hidden bg-[#05070d] pt-8 pb-16">
-      {/* Morphing ambient color backdrop */}
+    <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden bg-[#07090e] border-b border-gray-800/80">
+      {/* Dark luxury slate texture overlay inspired by ref 1 */}
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-neutral-900/60 via-[#07090e] to-[#040609] pointer-events-none" />
+      <div className="absolute inset-0 bg-[radial-gradient(#ffffff08_1px,transparent_1px)] [background-size:24px_24px] pointer-events-none opacity-40" />
+      
+      {/* Ambient glow matching active dish */}
       <div
-        className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[650px] h-[650px] rounded-full blur-[160px] opacity-25 pointer-events-none transition-all duration-1000"
+        className="absolute top-1/4 right-10 w-[550px] h-[550px] rounded-full blur-[170px] opacity-25 pointer-events-none transition-all duration-1000"
         style={{ backgroundColor: activeDish.accent }}
       />
-      <div className="absolute top-10 right-10 w-80 h-80 bg-cyan-600/10 rounded-full blur-[130px] pointer-events-none" />
 
-      {/* Cyber geometric grid lines */}
-      <div className="absolute inset-0 bg-[radial-gradient(#ffffff0a_1px,transparent_1px)] [background-size:32px_32px] pointer-events-none opacity-40" />
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full z-10">
-        {/* Top Editorial Bar */}
-        <div className="flex flex-wrap items-center justify-between gap-4 border-b border-gray-800/80 pb-6 mb-10 text-[11px] font-mono tracking-widest text-gray-400 uppercase">
-          <div className="flex items-center gap-3">
-            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
-            <span className="text-gray-300">Sanctuary Open • Dinner Service Active</span>
-          </div>
-          <div className="hidden sm:flex items-center gap-6">
-            <span>Lat 40.7128° N • Long 74.0060° W</span>
-            <span className="text-amber-400/80 font-bold">White-Glove Dispatch Active</span>
-          </div>
-        </div>
-
-        {/* Hero Split Architecture */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-          {/* Left Column: Bold Editorial Typography */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full z-10 py-12 lg:py-20">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+          
+          {/* Left Column: Reference 1 Editorial Typography Style */}
           <div className="lg:col-span-6 space-y-6 text-left">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-amber-500/30 bg-amber-500/10 text-amber-300 text-xs font-mono">
-              <Sparkles className="w-3.5 h-3.5" />
-              <span>CULINARY ARCHITECTURE 2026</span>
+            {/* Orange Accent Subtitle Dash matching reference */}
+            <div className="flex items-center gap-2.5">
+              <span className="w-8 h-[3px] bg-amber-500 rounded-full" />
+              <span className="text-[11px] font-mono font-bold tracking-[0.25em] text-amber-400 uppercase">
+                FINE DINING • REFINED GASTRONOMY
+              </span>
             </div>
 
-            <h1 className="text-5xl sm:text-7xl lg:text-8xl font-black tracking-tighter text-white uppercase leading-[0.92]">
-              <span className="block">BEYOND</span>
-              <span className="block bg-gradient-to-r from-amber-100 via-amber-300 to-amber-500 bg-clip-text text-transparent drop-shadow-2xl">
-                ORDINARY
-              </span>
-              <span className="block text-gray-400 font-light text-4xl sm:text-6xl tracking-tight mt-1">
-                DINING.
+            {/* Bold Serif Luxury Heading inspired by Reference 1 */}
+            <h1 className="text-4xl sm:text-6xl lg:text-7xl font-serif font-black tracking-tight text-white leading-[1.08] drop-shadow-2xl">
+              Beyond Ordinary <br />
+              <span className="bg-gradient-to-r from-amber-100 via-amber-300 to-amber-500 bg-clip-text text-transparent">
+                Dining Experience
               </span>
             </h1>
 
+            {/* Description Paragraph */}
             <p className="text-gray-300 text-sm sm:text-base max-w-lg leading-relaxed font-light">
               Where ancestral wok flame meets hand-stretched Neapolitan stone hearths and molecular mixology. Savoria is a multisensory sanctuary crafted for those who demand the extraordinary.
             </p>
 
-            {/* CTAs */}
-            <div className="flex flex-wrap items-center gap-4 pt-2">
+            {/* CTA Buttons matching reference 1 primary gold + secondary text/ghost */}
+            <div className="flex flex-wrap items-center gap-4 pt-3">
               <Link
                 href="/menu"
                 onClick={() => playBeep('click')}
-                className="px-8 py-4 rounded-full bg-gradient-to-r from-amber-400 to-amber-600 hover:from-amber-300 hover:to-amber-500 text-black font-extrabold text-xs uppercase tracking-widest transition-all duration-300 shadow-xl shadow-amber-500/20 flex items-center gap-3 group"
+                className="px-8 py-4 rounded-xl bg-gradient-to-r from-amber-400 via-amber-500 to-amber-600 hover:from-amber-300 hover:to-amber-500 text-black font-extrabold text-xs uppercase tracking-widest transition-all duration-300 shadow-xl shadow-amber-500/25 flex items-center gap-2.5 group"
               >
-                <span>Explore Full Menu Archive</span>
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-1.5 transition-transform" />
+                <span>ONLINE MENU</span>
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform stroke-[2.5]" />
               </Link>
 
               <Link
-                href="/contact"
+                href="/about"
                 onClick={() => playBeep('click')}
-                className="px-8 py-4 rounded-full glass-panel hover:bg-white/10 text-white font-medium text-xs uppercase tracking-wider transition-all border border-gray-700 hover:border-amber-400/50"
+                className="px-7 py-4 rounded-xl bg-white/5 hover:bg-white/10 text-white font-mono text-xs uppercase tracking-widest transition-all border border-gray-700/80 hover:border-amber-400/50 flex items-center gap-2"
               >
-                Connect With Concierge
+                <Sparkles className="w-3.5 h-3.5 text-amber-400" />
+                <span>ABOUT US</span>
               </Link>
+            </div>
+
+            {/* Pagination 3-Dot Indicators matching Reference 1 (bottom left) */}
+            <div className="flex items-center gap-2 pt-6">
+              {HERO_DISHES.map((dish, idx) => (
+                <button
+                  key={dish.id}
+                  onClick={() => {
+                    playBeep('click');
+                    setActiveDishIdx(idx);
+                  }}
+                  className={`transition-all duration-300 rounded-full ${
+                    activeDishIdx === idx
+                      ? 'w-7 h-2.5 bg-amber-400 shadow-[0_0_10px_#f59e0b]'
+                      : 'w-2.5 h-2.5 bg-gray-600 hover:bg-gray-400'
+                  }`}
+                  title={`View Dish ${idx + 1}: ${dish.name}`}
+                  aria-label={`Select dish ${idx + 1}`}
+                />
+              ))}
+              <span className="text-[10px] font-mono text-gray-400 ml-2">
+                0{activeDishIdx + 1} / 0{HERO_DISHES.length}
+              </span>
             </div>
           </div>
 
-          {/* Right Column: Interactive 3D Turntable Masterpiece */}
-          <div
-            className="lg:col-span-6 flex justify-center relative"
-            onMouseMove={handleMouseMove}
-          >
-            {/* Turntable Platter Outer Ring */}
-            <div
-              className="relative w-full max-w-lg aspect-square rounded-full p-4 flex items-center justify-center transition-all duration-300"
-              style={{
-                background: `radial-gradient(circle, ${activeDish.accent}15 0%, transparent 70%)`,
-              }}
-            >
-              {/* Outer decorative dashed orbit ring */}
-              <div className="absolute inset-0 rounded-full border border-dashed border-gray-700/60 animate-spin-slow pointer-events-none" />
-              <div className="absolute inset-6 rounded-full border border-white/10 pointer-events-none" />
+          {/* Right Column: Large Gourmet Sizzling Plate / Cast Iron Skillet matching Ref 1 */}
+          <div className="lg:col-span-6 flex flex-col items-center justify-center relative">
+            <div className="relative w-full max-w-lg aspect-square flex items-center justify-center">
+              
+              {/* Outer decorative dark skillet rim border */}
+              <div className="absolute inset-0 rounded-full border-[10px] border-[#141824] shadow-2xl shadow-black pointer-events-none" />
+              <div className="absolute inset-3 rounded-full border border-amber-500/20 pointer-events-none" />
 
-              {/* Central Floating Dish Plate with 3D tilt */}
-              <div
-                className="relative w-4/5 aspect-square rounded-full overflow-hidden shadow-2xl shadow-black p-3 bg-gradient-to-br from-white/15 to-transparent border border-white/20 backdrop-blur-md group"
-                style={{
-                  transform: `translate3d(${mouseOffset.x}px, ${mouseOffset.y}px, 0)`,
-                  transition: 'transform 0.15s ease-out',
-                }}
-              >
-                <div className="w-full h-full rounded-full overflow-hidden relative">
-                  <img
-                    src={activeDish.image}
-                    alt={activeDish.name}
-                    className="w-full h-full object-cover transition-all duration-700 group-hover:scale-110"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-black/20" />
+              {/* Main Food Imagery with smooth crossfade */}
+              <div className="relative w-[92%] aspect-square rounded-full overflow-hidden shadow-2xl border-4 border-[#1e2333] group">
+                <img
+                  key={activeDish.image}
+                  src={activeDish.image}
+                  alt={activeDish.name}
+                  className="w-full h-full object-cover transition-all duration-1000 scale-105 group-hover:scale-110 animate-in fade-in zoom-in-95"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent" />
 
-                  {/* Centered Dish Details on hover */}
-                  <div className="absolute bottom-6 left-6 right-6 text-center space-y-1">
-                    <span className="text-[10px] font-mono tracking-widest text-amber-300 uppercase">
-                      {activeDish.cuisine}
-                    </span>
-                    <h3 className="text-xl sm:text-2xl font-bold text-white drop-shadow-md">
-                      {activeDish.name}
-                    </h3>
-                    <p className="text-[11px] text-gray-300 font-light line-clamp-1">
-                      {activeDish.tagline}
-                    </p>
-                  </div>
+                {/* Overlaid Gourmet Details on the Skillet */}
+                <div className="absolute bottom-6 left-6 right-6 text-center space-y-1">
+                  <span className="text-[10px] font-mono uppercase tracking-widest text-amber-400 bg-black/60 px-2.5 py-0.5 rounded-full border border-amber-500/30">
+                    {activeDish.cuisine} • {activeDish.chef}
+                  </span>
+                  <h3 className="text-xl sm:text-2xl font-bold font-serif text-white drop-shadow-md">
+                    {activeDish.name}
+                  </h3>
+                  <p className="text-[11px] text-gray-300 font-light line-clamp-1 max-w-xs mx-auto">
+                    {activeDish.tagline}
+                  </p>
                 </div>
               </div>
 
-              {/* Slide Navigation Dots */}
-              <div className="absolute -bottom-6 flex items-center gap-2 z-20">
-                {HERO_DISHES.map((_, dotIdx) => (
-                  <button
-                    key={dotIdx}
-                    onClick={() => setActiveDishIdx(dotIdx)}
-                    className={`h-1.5 rounded-full transition-all duration-300 ${
-                      activeDishIdx === dotIdx
-                        ? 'w-6 bg-amber-400 shadow-[0_0_8px_#f59e0b]'
-                        : 'w-1.5 bg-gray-700 hover:bg-gray-500'
-                    }`}
-                    title={`Dish ${dotIdx + 1}`}
-                  />
-                ))}
+              {/* Bottom Navigation Arrow Buttons matching Reference 1 (bottom right of skillet) */}
+              <div className="absolute -bottom-4 right-6 sm:right-10 flex items-center gap-2 bg-[#0c101a] p-1.5 rounded-full border border-gray-700 shadow-xl z-20">
+                <button
+                  onClick={handlePrev}
+                  className="w-9 h-9 rounded-full bg-black/70 hover:bg-amber-500 text-gray-300 hover:text-black flex items-center justify-center transition-all"
+                  aria-label="Previous Dish"
+                >
+                  <ChevronLeft className="w-4 h-4 stroke-[2.5]" />
+                </button>
+                <button
+                  onClick={handleNext}
+                  className="w-9 h-9 rounded-full bg-black/70 hover:bg-amber-500 text-gray-300 hover:text-black flex items-center justify-center transition-all"
+                  aria-label="Next Dish"
+                >
+                  <ChevronRight className="w-4 h-4 stroke-[2.5]" />
+                </button>
               </div>
 
-              {/* Floating Orbiting Ingredient Badges */}
-              {activeDish.tags.map((tag, i) => {
-                const positions = [
-                  '-top-2 left-6',
-                  'top-1/3 -right-4',
-                  '-bottom-3 left-12',
-                ];
-                return (
-                  <div
-                    key={tag}
-                    className={`absolute ${positions[i]} px-3.5 py-1.5 rounded-full glass-panel border border-amber-500/40 text-[10px] font-mono text-gray-200 shadow-xl backdrop-blur-xl flex items-center gap-1.5 pointer-events-none animate-float`}
-                    style={{ animationDelay: `${i * 0.7}s` }}
-                  >
-                    <span className="w-1.5 h-1.5 rounded-full bg-amber-400" />
-                    <span>{tag}</span>
-                  </div>
-                );
-              })}
+              {/* Live Freshness / Thermal Badge */}
+              <div className="absolute top-4 left-4 px-3 py-1.5 rounded-full glass-panel border border-amber-500/40 text-[10px] font-mono text-gray-200 shadow-xl backdrop-blur-xl flex items-center gap-1.5 pointer-events-none">
+                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
+                <span>PREP: {activeDish.prepTime}</span>
+              </div>
             </div>
           </div>
+
         </div>
       </div>
-
-      <style jsx>{`
-        @keyframes spinSlow {
-          0% {
-            transform: rotate(0deg);
-          }
-          100% {
-            transform: rotate(360deg);
-          }
-        }
-        .animate-spin-slow {
-          animation: spinSlow 40s linear infinite;
-        }
-        @keyframes float {
-          0%, 100% {
-            transform: translateY(0px);
-          }
-          50% {
-            transform: translateY(-8px);
-          }
-        }
-        .animate-float {
-          animation: float 4s ease-in-out infinite;
-        }
-      `}</style>
     </section>
   );
 }

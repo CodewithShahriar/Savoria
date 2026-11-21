@@ -7,10 +7,13 @@ import CyberCursor from '@/components/CyberCursor';
 import Navbar from '@/components/Navbar';
 import Hero from '@/components/Hero';
 import InteractiveTicker from '@/components/InteractiveTicker';
+import AboutSection from '@/components/AboutSection';
+import WhyChooseUs from '@/components/WhyChooseUs';
 import SectionDivider from '@/components/SectionDivider';
 import CulinaryWorlds from '@/components/CulinaryWorlds';
 import FlavorSpectrumTuner from '@/components/FlavorSpectrumTuner';
 import ChefShowcase from '@/components/ChefShowcase';
+import AppPromoSection from '@/components/AppPromoSection';
 import KitchenTelemetry from '@/components/KitchenTelemetry';
 import TestimonialsSection from '@/components/TestimonialsSection';
 import Footer from '@/components/Footer';
@@ -25,53 +28,62 @@ export default function Home() {
       <div className="min-h-screen bg-[#04060a] text-gray-100 flex flex-col justify-between selection:bg-amber-500/30 selection:text-amber-200">
         <Navbar />
         <main className="flex-1">
-          {/* Section 01: Hero */}
+          {/* Section 01: Hero (Matching Ref 1 Dark Slate Layout + 3 Rotating Dishes) */}
           <Hero />
 
           {/* High-speed luxury typography ribbon */}
           <InteractiveTicker />
 
-          {/* Section Divider 01 -> 02 */}
+          {/* Section 02: About Us Spotlight (Linking to /about) */}
+          <AboutSection />
+
+          {/* Section 03: Why People Choose Us */}
+          <WhyChooseUs />
+
+          {/* Section Divider: Transition into Culinary Sanctums */}
           <SectionDivider
-            fromProtocol="01 // ORBITAL ORIGIN"
-            toProtocol="02 // FIVE SANCTUMS"
+            fromProtocol="02 // PHILOSOPHY"
+            toProtocol="03 // FIVE SANCTUMS"
             title="Culinary Sanctums Protocol"
           />
 
-          {/* Section 02: Culinary Worlds Experience */}
+          {/* Section 04: Culinary Worlds Experience */}
           <CulinaryWorlds />
 
-          {/* Section Divider 02 -> 03 */}
+          {/* Section Divider: Transition into Sensory Tuning */}
           <SectionDivider
-            fromProtocol="02 // SANCTUMS"
-            toProtocol="03 // SENSORY ENGINE"
+            fromProtocol="03 // SANCTUMS"
+            toProtocol="04 // SENSORY ENGINE"
             title="Sensory Resonance Tuning"
           />
 
-          {/* Section 03: Flavor Spectrum Tuner */}
+          {/* Section 05: Flavor Spectrum Tuner */}
           <FlavorSpectrumTuner />
 
-          {/* Section Divider 03 -> 04 */}
+          {/* Section Divider: Haute Tasting Highlights */}
           <SectionDivider
-            fromProtocol="03 // SENSORY"
-            toProtocol="04 // CHEF SPOTLIGHT"
+            fromProtocol="04 // SENSORY"
+            toProtocol="05 // CHEF SPOTLIGHT"
             title="Haute Tasting Highlights"
           />
 
-          {/* Section 04: Chef's 4-Course Showcase with Link to /menu */}
+          {/* Section 06: Chef's 4-Course Showcase with Link to /menu */}
           <ChefShowcase />
 
-          {/* Section Divider 04 -> 05 */}
+          {/* Section 07: Mobile Application & VIP Promo Banner (Matching Ref 2) */}
+          <AppPromoSection />
+
+          {/* Section Divider: Live Operational Telemetry */}
           <SectionDivider
-            fromProtocol="04 // SPOTLIGHT"
-            toProtocol="05 // TELEMETRY"
+            fromProtocol="05 // MOBILE CONCIERGE"
+            toProtocol="06 // TELEMETRY"
             title="Live Operational Station"
           />
 
-          {/* Section 05: Kitchen Sensors & Telemetry */}
+          {/* Section 08: Kitchen Sensors & Telemetry */}
           <KitchenTelemetry />
 
-          {/* Critic Accolades */}
+          {/* Critic Accolades & Testimonials */}
           <TestimonialsSection />
         </main>
         <Footer />
